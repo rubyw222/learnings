@@ -1,12 +1,18 @@
 import { useState } from 'react';
-
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const Tgroup = () => {
     let [items,setItems] = useState(['24','35','140']);
     
     const addElements = () => {
         return items.map((item,i)=>(
-            <div className="item" key={i}>{item}</div>
+            <CSSTransition 
+                classNames='item'
+                timeout={500}
+                key={i}
+            >
+                <div className="item" key={i}>{item}</div>
+            </CSSTransition>
         ))
     }
 
@@ -26,7 +32,9 @@ const Tgroup = () => {
 
     return(
             <div className="tgroup">
-                {addElements()}
+                <TransitionGroup component='div' className='list'>
+                    {addElements()}
+                </TransitionGroup>
              
                 <div className="btns">
                     <button onClick={()=> generateNumber()}>Add Elements</button>
